@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Attraction {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @default("")
+  location    String   @default("Location TBD")
+  type        String   @default("Historical")
+  featured    Boolean  @default(false)
+  heroImage   String   @default("")
+  aboutImage  String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tours       Tour[]
+}
+
+model Tour {
+  id           String   @id @default(cuid())
+  title        String
+  priceUSD     Int
+  durationMins Int
+  attractionId String
+  createdAt    DateTime @default(now())
+
+  attraction   Attraction @relation(fields: [attractionId], references: [id], onDelete: Cascade)
+}
