@@ -1,12 +1,15 @@
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
+import { Providers } from "@/components/providers";
+import { SiteHeader } from "@/components/site-header"; // adjust path if different
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white text-slate-900">
-        <SiteHeader />
-        {children}
+      <body>
+        <Providers>
+          <SiteHeader />
+          {children}
+        </Providers>
       </body>
     </html>
   );
