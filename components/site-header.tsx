@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Globe, ChevronDown, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { UserMenu } from "@/components/auth/user-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,7 +37,7 @@ export function SiteHeader() {
             <DropdownMenuContent align="start" className="w-56">
               <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
-                <span>Log in / Sign up</span>
+                  <Link href="/auth/login"><span>Log in / Sign up</span></Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <span>Blogs</span>
@@ -57,7 +58,7 @@ export function SiteHeader() {
             <span>USD</span>
           </button>
 
-          <Button className="rounded-full">Sign in</Button>
+          <UserMenu/>
         </div>
       </div>
     </header>
