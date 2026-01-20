@@ -1,6 +1,7 @@
 // components/site-header.tsx
 import Link from "next/link";
 import { Globe, ChevronDown, User } from "lucide-react";
+import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/auth/user-menu";
 import {
@@ -13,11 +14,12 @@ import {
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
+      <div className="mx-auto flex h-24 max-w-6xl items-center justify-between px-4">
+        <Logo />
+        {/* <Link href="/" className="flex items-center gap-2 font-semibold">
           <div className="h-8 w-8 rounded-full border" />
-          <span>Tourist Site</span>
-        </Link>
+          <span>Discover Egypt</span>
+        </Link> */}
 
         <nav className="hidden items-center gap-7 md:flex">
           <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" href="/discover">
