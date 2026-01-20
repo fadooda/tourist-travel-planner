@@ -123,3 +123,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Discover Egypt launcher ping ring (safe: does NOT affect button position) */
+.de-launcher-ping {
+  position: relative;
+  isolation: isolate;
+}
+
+.de-launcher-ping::before {
+  content: "";
+  position: absolute;
+  inset: -8px;                 /* ring size */
+  border-radius: 9999px;
+  background: rgba(109, 26, 106, 0.18); /* #6D1A6A with alpha */
+  pointer-events: none;
+  z-index: -1;
+  animation: dePing 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes dePing {
+  0%   { transform: scale(1);   opacity: 1; }
+  75%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes deNotifyRing {
+  0% { box-shadow: 0 0 0 0 rgba(109, 26, 106, 0.5); }
+  70%  { box-shadow: 0 0 0 32px rgba(109, 26, 106, 0); } /* <-- bigger ring */
+  100% { box-shadow: 0 0 0 0 rgba(109, 26, 106, 0); }
+}
+
+.de-notify-ring {
+  animation: deNotifyRing 1.2s infinite;
+}
