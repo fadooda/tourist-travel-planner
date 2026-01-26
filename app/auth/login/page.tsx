@@ -1,3 +1,4 @@
+//app/auth/login/page.tsx
 "use client";
 
 import { signIn } from "next-auth/react";
@@ -18,7 +19,7 @@ export default function LoginPage() {
       email,
       password,
       redirect: false,
-      callbackUrl: "/app",
+      callbackUrl: "/dashboard",
     });
 
     if (!res || res.error) {
@@ -26,7 +27,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.push(res.url ?? "/app");
+    router.push(res.url ?? "/dashboard");
   }
 
   return (
