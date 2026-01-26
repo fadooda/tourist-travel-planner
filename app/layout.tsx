@@ -1,6 +1,7 @@
+//app/layout.tsx
 import "./globals.css";
 import { Providers } from "@/components/providers";
-import { SiteHeader } from "@/components/site-header"; // adjust path if different
+import PublicHeaderGate from "@/components/public-header-gate"; // adjust path if different
 import ChatWidget from "@/components/chat/ChatWidget";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -8,7 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Providers>
-          <SiteHeader />
+          <PublicHeaderGate />
           {children}
           <ChatWidget />
         </Providers>

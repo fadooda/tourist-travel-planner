@@ -1,3 +1,4 @@
+//lib/auth.ts
 import { getServerSession } from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
@@ -27,20 +28,45 @@ export const authOptions: NextAuthOptions = {
         const ok = await bcrypt.compare(password, user.passwordHash);
         if (!ok) return null;
 
-        return { id: user.id, email: user.email, name: user.name, image: user.image };
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          role: user.role, // ✅ IMPORTANT
+        };
       },
     }),
   ],
+  // lib/auth.ts (only the callbacks section shown)
   callbacks: {
     async jwt({ token, user }) {
-        if (user?.id) token.uid = user.id;
+      // Initial sign-in
+      if (user) {
+        const id = (user as any).id as string | undefined;
+        token.sub = id ?? token.sub;
+        (token as any).role = (user as any).role;
         return token;
+      }
+
+      // ✅ Always re-sync role from DB (prevents "stale role" 403)
+      if (token.sub) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { role: true },
+        });
+        if (dbUser?.role) (token as any).role = dbUser.role;
+      }
+
+      return token;
     },
+
     async session({ session, token }) {
-        if (session.user && token.uid) {
-        session.user.id = token.uid;
-        }
-        return session;
+      if (session.user) {
+        (session.user as any).id = token.sub;
+        (session.user as any).role = (token as any).role;
+      }
+      return session;
     },
   },
   pages: { signIn: "/auth/login" },

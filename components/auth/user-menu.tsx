@@ -1,3 +1,4 @@
+//components/auth/user-menu-tsx
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
@@ -21,7 +22,7 @@ export function UserMenu() {
   return (
     <div className="flex items-center gap-3">
       <Link
-        href="/app"
+        href="/dashboard/trips"
         className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm"
       >
         Dashboard
